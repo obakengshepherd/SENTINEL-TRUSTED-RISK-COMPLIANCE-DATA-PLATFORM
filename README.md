@@ -2,7 +2,7 @@
 
 **Primary specialisation:** Data Engineering  
 **Project type:** Synthetic enterprise portfolio demonstration  
-**Status:** Foundation documentation established; implementation not started.
+**Status:** Foundation documentation accepted as the implementation baseline; implementation not started.
 
 ## Purpose
 Sentinel demonstrates how an organisation can establish confidence in risk- and compliance-related information through controlled ingestion, data quality, governance, provenance, lineage, traceability, audit evidence, exception handling and reporting.
@@ -47,5 +47,7 @@ Inspect repository state before changing it. Obtain Product Owner approval befor
 
 Distinguish NOT STARTED, IN PROGRESS, BLOCKED, IMPLEMENTED, VERIFIED and ACCEPTED. Never claim verification without evidence.
 
-## Current status
-This repository currently contains initial project documentation only. Application code, database schema, ingestion pipelines, automated tests and deployment configuration have not yet been implemented or verified.
+## Current status and approval boundary
+The Product Owner accepted the foundation documentation as the baseline for implementation. This confirms the project's purpose, scope and documented direction as the working baseline; it does not mean that detailed database/domain design decisions have all been approved.
+
+Phase 1 database and domain design remains to be completed and reviewed before schema implementation. Application code, database schema, ingestion pipelines, automated tests and deployment configuration have not yet been implemented or verified.
