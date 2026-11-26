@@ -1,6 +1,7 @@
 # Implementation Plan
 
-**Status:** Full phased scope approved; phase designs and implementation increments require review.
+**Status:** Foundation documentation accepted; Phase 1 database and domain design not yet approved for implementation.  
+**Delivery:** Full phased project scope approved; phase designs and implementation increments require review.
 
 ## 1. Delivery principles
 Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**. Work in manageable increments. Inspect before modifying. Preserve verified behaviour. Do not expand scope silently. Report actual test results. Code being written does not make a phase complete.
@@ -10,12 +11,29 @@ Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**. Work 
 ### Phase 0 — Project foundation
 Deliverables: business purpose, scope and exclusions; controlled glossary; conceptual entity and relationship model; architecture and technology direction; governance, provenance and lineage principles; acceptance criteria and repository documentation.
 
-Exit evidence: foundation and detailed design decisions reviewed and approved.
+**Status:** Foundation documentation accepted by the Product Owner as the implementation baseline.
+
+The acceptance gate for this documentation milestone is satisfied. It does not imply that every detailed entity relationship, physical database design, lifecycle policy or implementation choice has been approved. Those detailed design gates are addressed before and during Phase 1.
 
 ### Phase 1 — Database and domain foundation
-Deliverables: verified local database environment; initial relational schema and reference data; core domain entities and constraints; synthetic seed dataset; database and domain tests.
+**Status:** NOT STARTED — design and review required before schema implementation.
 
-Exit evidence: schema can be created reproducibly; constraints and representative relationships are tested.
+Deliverables:
+- Verify the local SQL Server 2022 Developer Edition environment and selected tooling.
+- Review and finalise the conceptual domain model and entity relationships.
+- Define the initial relational schema, keys, constraints and reference data.
+- Define record identity, exact-duplicate and conflict semantics.
+- Define the initial synthetic seed dataset and its expected relationships.
+- Define database migration/setup and repeatability approach.
+- Define tests for core domain rules, constraints and representative relationships.
+
+**Review and approval gate before implementation:**
+- Claude specialist review of the domain model, database design, data integrity and governance implications.
+- ChatGPT synthesis of findings and proposed disposition.
+- Product Owner approval of material design decisions.
+- Only then begin the bounded Phase 1 implementation increment.
+
+**Exit evidence:** Schema can be created reproducibly; constraints and representative relationships are tested; synthetic seed data is reproducible; the implemented domain foundation satisfies its agreed acceptance criteria.
 
 ### Phase 2 — Data ingestion
 Deliverables: CSV and JSON ingestion; source and batch registration; raw payload preservation; record receipt tracking; idempotency, duplicate and conflict handling; pipeline run metadata.
@@ -84,7 +102,7 @@ Implementation and verification are separate states. Acceptance is a Product Own
 ## 5. First implementation increment
 After detailed conceptual and physical design approval, propose a bounded Phase 1 increment covering solution structure, initial database schema, core source and ingestion entities, key constraints and reference data, a small synthetic dataset and automated tests.
 
-Do not begin substantial implementation solely because overall project scope has been approved.
+Do not begin substantial implementation solely because overall project scope or foundation documentation has been accepted.
 
 ## 6. Completion reporting
 At each meaningful task completion, report accomplishments; files created or modified; important technical decisions; tests executed and actual results; outstanding issues; documentation updated; Git status and commit if applicable; recommended next action.
