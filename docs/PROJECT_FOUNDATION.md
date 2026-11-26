@@ -1,6 +1,6 @@
 # Project Foundation
 
-**Status:** Initial foundation baseline. Detailed design and implementation approvals remain outstanding.
+**Status:** Foundation documentation accepted by Product Owner as the implementation baseline. Detailed design and implementation approvals remain outstanding.
 
 ## 1. Definition
 Sentinel is a synthetic enterprise Data Engineering platform demonstrating how organisations collect, validate, govern, trace and responsibly use risk- and compliance-related information.
@@ -109,4 +109,6 @@ A reviewer can select a synthetic record and determine where it originated, when
 Demonstrate this through working structures, processing behaviour, tests and reproducible queries—not documentation claims alone.
 
 ## 10. Approval boundaries
-The modular-monolith architecture, SQL Server direction and full phased scope have Product Owner approval. Detailed entity relationships, lifecycle rules, retention and correction policy, security boundaries, implementation design and substantial implementation increments remain subject to review and approval where material.
+The Product Owner accepted the foundation documentation as the baseline for implementation. The approved project direction includes the modular-monolith architecture, SQL Server 2022 direction and phased project scope as recorded in the project decisions.
+
+Acceptance of the foundation is not acceptance of every detailed design. Entity relationships, physical schema, lifecycle rules, retention and correction policy, security boundaries, implementation design and substantial implementation increments remain subject to review and Product Owner approval where material.
