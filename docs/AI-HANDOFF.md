@@ -50,23 +50,18 @@ These are non-negotiable:
 
 ## 4. Latest known repository state
 
-Latest known `main` commit at this handoff update:
+Repository state verified on 2026-11-26 before this handoff correction:
 
-`015458ec8d80a67dd903d09a2d82572599cc145b` — `docs(sentinel): establish AI collaboration agreement`
+- Current `main` HEAD: `7035021b0753b355ae2cddc3fea5c01a72eaf440` — `docs(sentinel): record specialist review handoff`.
+- Parent commit: `015458ec8d80a67dd903d09a2d82572599cc145b` — `docs(sentinel): establish AI collaboration agreement`.
+- Branch search returned only `main`; no Claude work branch exists.
+- Pull-request search returned no open or closed PRs.
+- The three foundation corrections are present on `main`: `README.md`, `docs/PROJECT_FOUNDATION.md` and `docs/IMPLEMENTATION_PLAN.md`.
+- Both `docs/AI-COLLABORATION.md` and `docs/AI-HANDOFF.md` are present on `main`.
+- The latest handoff commit adds `docs/AI-HANDOFF.md` (214 lines); the collaboration agreement is in its parent commit.
+- The reviewed documentation describes no application code, database schema, migrations, seed data, automated tests or deployment configuration as implemented.
 
-Immediately preceding repository head inspected:
-
-`f26bad46961b78dc3491a2222fb269d3519db12a` — `docs(sentinel): clarify Phase 0 acceptance and Phase 1 design gate`
-
-The repository was inspected before these collaboration documents were added. At that inspection:
-- `main` was the only branch returned by branch search.
-- No pull requests were found.
-- The three latest foundation corrections were present on `main`: `README.md`, `docs/PROJECT_FOUNDATION.md`, `docs/IMPLEMENTATION_PLAN.md`.
-- `docs/AI-COLLABORATION.md` and `docs/AI-HANDOFF.md` did not exist.
-- The accepted foundation documents and conceptual model were present.
-- No application code, schema, migrations, seed data, automated tests or deployment configuration were found in the reviewed project documentation/status.
-
-The collaboration agreement was then created on `main` in commit `015458ec8d80a67dd903d09a2d82572599cc145b`. This handoff file is being added immediately afterwards. Fetch the live branch head before any future assignment; this SHA is the known base before this handoff-file commit.
+The earlier assignment record was initially drafted against commit `015458ec8d80a67dd903d09a2d82572599cc145b`, before the handoff file was committed. The review assignment is read-only and has no branch or modification base. Claude must independently inspect and report the exact latest `main` SHA at the time of review; do not treat the historical preparation SHA as a current branch base.
 
 ## 5. Completed work
 
@@ -113,7 +108,7 @@ Not yet approved:
 | Assignment authority | REVIEW ONLY |
 | Status | PREPARED — awaiting Product Owner to submit prompt to Claude |
 | Branch | Not applicable; no file modifications authorised |
-| Base commit | `015458ec8d80a67dd903d09a2d82572599cc145b` known before this handoff-file commit; Claude must inspect latest `main` when reviewing |
+| Base commit | Not applicable for REVIEW ONLY; latest inspected `main` at assignment preparation: `7035021b0753b355ae2cddc3fea5c01a72eaf440`. Claude must re-check and record the exact current `main` SHA when reviewing |
 | Files assigned | Read-only: `README.md`; `docs/PROJECT_FOUNDATION.md`; `docs/DOMAIN_GLOSSARY.md`; `docs/DATA_MODEL.md`; `docs/ARCHITECTURE.md`; `docs/DATA_GOVERNANCE.md`; `docs/PROVENANCE_AND_LINEAGE.md`; `docs/IMPLEMENTATION_PLAN.md`; `docs/PROJECT_EVOLUTION.md`; `docs/AI-COLLABORATION.md`; `docs/AI-HANDOFF.md` |
 | Files excluded | All files are excluded from modification. No edits, commits, branches or PRs for this review-only task. |
 | File ownership | ChatGPT retains repository file-maintenance ownership. Claude receives read-only review access; no modification ownership is transferred. |
