@@ -1,6 +1,6 @@
 # Project Foundation
 
-**Status:** Foundation documentation accepted by Product Owner as the implementation baseline. Detailed design and implementation approvals remain outstanding.
+**Historical status (25 November 2026):** Foundation documentation established. Detailed design and implementation approvals remain outstanding.
 
 ## 1. Definition
 Sentinel is a synthetic enterprise Data Engineering platform demonstrating how organisations collect, validate, govern, trace and responsibly use risk- and compliance-related information.
@@ -95,9 +95,11 @@ Data Engineer; Data Analyst; Data Governance Officer; Risk Analyst; Investigator
 Performance targets will be set after representative workloads are defined.
 
 ## 8. Domain invariants
+- A risk indicator is not an alert.
 - An alert is not proof of wrongdoing.
 - An investigation is not proof of guilt.
 - An outcome must reference its investigation and supporting evidential basis.
+- Evidence and outcomes are distinct concepts.
 - Source identity and ingestion context must not be silently discarded.
 - Exact duplicates and conflicting submissions must be distinguishable.
 - Important status transitions and corrections must be traceable.
@@ -109,6 +111,6 @@ A reviewer can select a synthetic record and determine where it originated, when
 Demonstrate this through working structures, processing behaviour, tests and reproducible queries—not documentation claims alone.
 
 ## 10. Approval boundaries
-The Product Owner accepted the foundation documentation as the baseline for implementation. The approved project direction includes the modular-monolith architecture, SQL Server 2022 direction and phased project scope as recorded in the project decisions.
+The Product Owner-approved project direction includes the modular-monolith architecture, SQL Server 2022 Developer Edition direction and full phased project scope, delivered incrementally.
 
-Acceptance of the foundation is not acceptance of every detailed design. Entity relationships, physical schema, lifecycle rules, retention and correction policy, security boundaries, implementation design and substantial implementation increments remain subject to review and Product Owner approval where material.
+The 25 November foundation is the historical baseline, not blanket approval of detailed design. Entity relationships, physical schema, lifecycle rules, source identity and duplicate/conflict semantics, retention and correction policy, security boundaries, proposed application technologies, implementation design and substantial implementation increments remain subject to review and Product Owner approval where material.
