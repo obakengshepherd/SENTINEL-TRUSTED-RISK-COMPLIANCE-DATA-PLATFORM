@@ -9,174 +9,213 @@
 ## 1. Current project status
 
 **Historical baseline:** 25 November 2026 — `82cb85867e3698b074714d076fb8e49fd4012cb4`.  
-**Historical project status:** Foundation documentation established. Detailed design and implementation increments remain subject to their respective approval gates. No application implementation.  
-**Current phase:** Phase 1 — Database and Domain Design.  
-**Phase 1 design:** NOT STARTED.  
-**Phase 1 implementation:** NOT STARTED; NOT AUTHORISED.  
-**Phase 1 progress:** 0% of Phase 1 design/implementation deliverables. No design deliverable has yet been completed or approved against the Phase 1 acceptance criteria.
+**Current verified main before this documentation update:** `205d01e81d5927db45e156fd51d7fb2a5d945f65`.  
+**Current phase:** Phase 1 — Database and Domain Design / Foundation.  
+**Design baseline:** SEN-DESIGN-001 APPROVED by Product Owner on 27 November 2026, no amendments.  
+**First implementation increment:** SEN-DB-001 — SQL Server Ingestion Foundation.  
+**SEN-DB-001 authorisation:** APPROVED 27 November 2026.  
+**SEN-DB-001 implementation:** NOT STARTED; Claude has not yet received/returned the assignment in this workflow.  
+**SEN-DB-001 verification/acceptance:** NOT VERIFIED / NOT ACCEPTED.  
+**Application implementation:** None evidenced at the time of this handoff.
 
-This is a governance/workflow correction, not a project restart. Preserve all valid requirements, architecture and project decisions established by the historical cutoff. Do not treat 26 November workflow instructions or changes as active authority.
+This is a governance/workflow correction and engineering activation, not a project restart. Preserve valid requirements, architecture, decisions and Git history. Sentinel remains a synthetic enterprise portfolio demonstration, not a production banking, fraud, AML or regulatory system. Synthetic data only.
 
-Sentinel is a synthetic enterprise portfolio demonstration, not a production banking, fraud, AML or regulatory system. Synthetic data only.
+## 2. Repository and authority
 
-## 2. Historical and current repository state
+The repository is the shared authoritative project record. Product Owner has final authority. Active FNEOS responsibilities are in `docs/AI-COLLABORATION.md` and the 27 November Product Owner directive.
 
-### Historical baseline
-- Baseline commit: `82cb85867e3698b074714d076fb8e49fd4012cb4`.
-- Date: 25 November 2026.
-- Foundation documentation exists; no application implementation.
-- The initial baseline contains the project README and eight foundation documents under `docs/`.
+- ChatGPT owns architecture, requirements, specifications, all documentation, implementation planning, Claude handoffs, change control, main-branch governance, integration review and living handoff.
+- Claude reviews the assigned Primary AI design once and implements only exact assigned code files. Claude returns complete files in chat and does not write to GitHub or edit documentation.
+- Product Owner assembles files locally, runs commands/tests and supplies actual evidence. ChatGPT reviews and integrates approved work into `main`.
 
-### Current state inspected before this reset
-- `main) HEAD inspected: `22a1c8b8cc1089fcbb72af344a115cf6942c0ad3` — `docs(sentinel): correct repository handoff state`.
-- This was six commits after the historical baseline, all dated 26 November.
-- The 26 November commits changed README/foundation/implementation status wording and introduced a branch/PR-oriented AI collaboration agreement and handoff.
-- The branch search returned only `main); no pull requests were found.
-- The 26 November handoff contained assignment SEN-REV-001 prepared under the superseded workflow. There is no evidence in the inspected repository that Claude completed that review.
-- The inspected project documentation records no application code, database schema, migrations, seed data, automated tests or deployment configuration as implemented.
+No branches unless Product Owner authorises a named exception. No force-push, history rewrite or deletion of historical commits. One active modification owner per file.
 
-### Corrective commits created on 27 November
-The following commits were made sequentially on `main), without creating branches or rewriting history:
-
-| Commit | File | Purpose |
-|---|---|---|
-| `3459ee158da4aa69af53d2dcbfaa5d95dac696d7` | `README.md` | Restore historical status; classify approved versus proposed direction; link governance records |
-| `9bab024cc80dd46a70a6b690627aac1e6014cc27` | `docs/PROJECT_FOUNDATION.md` | Restore historical baseline status and clarify approval boundaries |
-| `3b66f37625e0dca74b8895232f7350bab50b33a9` | `docs/IMPLEMENTATION_PLAN.md` | Establish Phase 1 design/implementation gates and acceptance criteria |
-| `81b8b026b232b9303fba3409569ac1172b088b22` | `docs/DECISIONS.md` | Create the authoritative decision register |
-| `61b1d556dfd8307975090b2c0d1c8fbea816dc17` | `docs/AI-COLLABORATION.md` | Replace the 26 November workflow with the approved FNEOS agreement |
-
-The GitHub contents operations produced one normal commit per file, so the original two-commit proposal was not realised. No history was rewritten and no branch was created. The handoff update was committed on `main` as a separate normal commit. The final branch head was fetched and verified after the update; re-check `main` before any subsequent assignment.
-
-## 3. Approved project direction and constraints
+## 3. Approved project direction
 
 | Area | Current position | Status |
 |---|---|---|
 | Architecture | Modular monolith | APPROVED |
-| Database | SQL Server 2022 Developer Edition for local development | APPROVED |
-| Scope | Full phased scope, delivered incrementally | APPROVED |
-| Initial ingestion formats | CSV and JSON | Foundation requirement |
-| Data organisation | Bronze / Silver / Gold logical organisation | Foundation direction; physical implementation rules open |
+| Database | SQL Server 2022 Developer Edition, local development | APPROVED |
+| Scope | Full phased scope, incremental delivery | APPROVED |
+| Input formats | CSV and JSON | Foundation requirement |
+| Data organisation | Bronze / Silver / Gold logical layers | Foundation direction |
 | Data | Synthetic only | MANDATORY |
-| Domain semantics | Risk indicator, alert, investigation and investigation outcome are distinct | MANDATORY |
-| Historical projects | Conceptual references only; no code/dependencies/repository histories imported | Accepted baseline rule |
-| C# / .NET 10 LTS | Proposed | NOT APPROVED; verify SDK and compatibility |
-| Dapper / ADO.NET | Proposed | NOT APPROVED |
-| ASP.NET Core | Proposed | NOT APPROVED |
-| xUnit | Proposed | NOT APPROVED |
-| VS Code / SSMS | Proposed local tooling direction | Verify actual environment |
+| Domain | Risk indicator, alert, investigation and outcome are distinct | MANDATORY |
+| SEN-DESIGN-001 | Detailed domain and initial SQL Server design | APPROVED |
+| SEN-DB-001 | SQL Server Ingestion Foundation | AUTHORISED; NOT STARTED |
+| C#/.NET, Dapper/ADO.NET, ASP.NET Core, xUnit | Proposed choices | NOT APPROVED / NOT REQUIRED for SEN-DB-001 |
 
-The decision register in `docs/DECISIONS.md` is authoritative for decision classification and open design questions.
+See `docs/DECISIONS.md` and `docs/PHASE-1-DATABASE-DOMAIN-DESIGN.md`.
 
-## 4. Mandatory domain invariants
+## 4. Approved domain and data integrity invariants
 
-- A risk indicator is not an alert.
-- An alert is not proof of wrongdoing.
-- An investigation is not proof of guilt.
-- An investigation outcome must have a defensible, identifiable evidential basis.
-- Evidence and outcome are separate concepts.
-- Invalid data must not silently enter trusted reporting datasets.
-- Provenance and lineage must remain explainable.
-- Source identity, processing context and material corrections must not be silently discarded.
-- Exact duplicates and conflicting records must be distinguishable.
+- Source record identity is scoped to a DataSource; content hash is not business identity.
+- Every delivery is a distinct traceable receipt.
+- Same source identity + same SHA-256 content hash is an exact repeat; same identity + different hash is changed content. Both deliveries remain preserved.
+- Raw payload bytes are retained independently from later standardised data.
+- Processing runs are identifiable and historical; retry does not erase a prior run.
+- RiskIndicator, Alert, Investigation, EvidenceRecord and InvestigationOutcome are distinct.
+- Alerts are not proof of wrongdoing; investigations are not proof of guilt.
+- Every outcome requires at least one identifiable evidence association; a foreign key to Investigation alone is insufficient.
+- UTC is the storage convention for system timestamps; source event time is distinct.
+- Monetary values, if introduced, use explicit decimal precision and currency code.
+- Invalid data must not silently enter trusted reporting outputs.
+- No cascading deletes through preserved source receipt/payload history.
 
-## 5. FNEOS workflow and file ownership
+## 5. SEN-DB-001 — active assignment
 
-The approved workflow is defined in `docs/AI-COLLABORATION.md`.
+**Task:** SEN-DB-001  
+**Phase:** Phase 1 — Database and Domain Design / Foundation  
+**Increment:** Initial SQL Server Ingestion Foundation  
+**Assignment base main SHA:** `205d01e81d5927db45e156fd51d7fb2a5d945f65` (verified immediately before assignment documentation was prepared; re-check main if repository has advanced after this handoff commit).  
+**Design authority:** SEN-DESIGN-001, Product Owner-approved 27 November 2026.  
+**Review mode:** One independent review of the approved design and this assignment. If no blocking issue exists, Claude proceeds with implementation under this same handoff. No separate review-only loop.
 
-1. **ChatGPT — Architecture & Documentation:** owns architecture, requirements, technical specifications, all project documentation, decision records, implementation plans, assignments, main-branch governance and integration.
-2. **Claude — Engineering & Code:** reviews architecture by default; implements only exact assigned code files; returns complete files in chat with paths, explanations, tests and execution instructions. Claude does not push or commit to GitHub and does not modify documentation without explicit Product Owner-approved ownership transfer.
-3. **Product Owner + VS Code + ChatGPT — Assembly & Integration:** Product Owner assembles code and runs it; supplies actual diffs/results/errors; ChatGPT performs the return/alignment checkpoint, reviews against the approved assignment and integrates approved changes into `main).
+### 5.1 Objective
 
-**Zero-overlap:** one active modification owner per file. ChatGPT owns documentation. Claude is read-only on documentation by default and owns only explicitly assigned code files during an active assignment.
+Create the initial SQL Server source/ingestion/raw-payload foundation for Sentinel. This is a SQL-only database increment, not application implementation.
 
-**Branch rule:** Branch-based work is prohibited unless the Product Owner explicitly authorises it for a named task. No Claude direct pushes or commits.
+### 5.2 Exact Claude-owned code files
 
-## 6. Return/alignment checkpoint
+Claude may create only these three files:
 
-Whenever the Product Owner returns after Claude work or local VS Code assembly, ChatGPT must first:
-1. Establish the latest `main) commit.
-2. Inspect repository state and relevant changes.
-3. Compare supplied implementation with the approved assignment and file list.
-4. Review actual test/build results supplied by the Product Owner.
-5. Identify inconsistencies, omissions, unapproved changes and blockers.
-6. Confirm alignment or list unresolved items.
+1. `database/001-create-schemas.sql`
+2. `database/002-create-ingestion-foundation.sql`
+3. `database/tests/001-verify-ingestion-foundation.sql`
 
-Do not issue the next implementation assignment until this checkpoint is complete. ChatGPT cannot claim access to uncommitted local changes or local test results that have not been supplied.
+No other file ownership is transferred.
 
-## 7. Phase 1 — Database and Domain Design
+### 5.3 Approved objects
 
-**Status: NOT STARTED. No implementation is authorised.**
+Create schemas: `ref`, `ingest`, `bronze`, `ops`.
 
-Required design work:
-- Domain entities, responsibilities, relationships, cardinalities and lifecycle boundaries.
-- Source identity, re-delivery, idempotency, exact-duplicate/conflict semantics, correction and version history.
-- Investigation referral sources, alert/investigation relationships, evidence association and outcome lifecycle.
-- SQL Server physical design: schemas, tables, keys, constraints, indexes and transaction boundaries.
-- Data-quality issue lifecycle, rejected/quarantined records and reprocessing.
-- Bronze/Silver/Gold promotion criteria and provenance/lineage boundaries.
-- Governance, audit, retention and security boundaries proportionate to this synthetic local portfolio.
-- Deterministic synthetic reference/seed scenarios and acceptance tests.
-- Verify local SQL Server installation/connectivity and inspect .NET SDK/runtime before finalising proposed stack choices.
+Create tables:
+- `ref.DataSource`
+- `ops.PipelineRun`
+- `ingest.IngestionBatch`
+- `ingest.SourceRecordIdentity`
+- `ingest.RecordReceipt`
+- `bronze.RawRecord`
 
-### Phase 1 approval gates
-1. ChatGPT prepares the bounded design/review scope and assignment.
-2. Claude independently reviews the current repository and returns a review report only, unless a later task explicitly authorises code.
-3. ChatGPT reconciles findings and prepares design decisions.
-4. Product Owner approves material design choices and the detailed design baseline.
-5. ChatGPT records approved decisions.
-6. Product Owner explicitly authorises the first bounded implementation increment.
+Use the detailed entity responsibilities, minimum columns, relationships, SQL Server types, constraints and indexing guidance in `docs/PHASE-1-DATABASE-DOMAIN-DESIGN.md`. SQL Server 2022-compatible T-SQL. Use `datetime2(7)` for UTC instants, SHA-256 as exactly 32 bytes, and `varbinary(max)` to preserve exact payload bytes. Source identity unique on (DataSourceId, SourceRecordKey). Repeated receipts must be allowed; do not create a unique constraint on source identity + hash. RawRecord must be one-to-one with RecordReceipt.
 
-No schema, migrations, seed data, application code or implementation tests before the above gates are satisfied.
+### 5.4 Required behaviour and acceptance criteria
 
-### Phase 1 design acceptance evidence
-- Approved conceptual domain model and cardinalities.
-- Defined source identity, idempotency, duplicate/conflict and correction rules.
-- Defined investigation, evidence and outcome lifecycle.
-- Reviewed physical SQL Server design.
-- Defined transaction/failure boundaries for the first increment.
-- Synthetic seed scenarios and expected outcomes.
-- Environment discovery and accurate technology classification.
-- Bounded implementation scope and test plan.
-- Material decisions approved by the Product Owner.
+1. Setup creates all four schemas and six tables with the approved relationships.
+2. Primary/foreign keys, unique constraints and check constraints enforce the model.
+3. A source identity is unique within its source, not globally.
+4. Multiple deliveries for one source identity are retained independently.
+5. Same identity/same hash and same identity/different hash both can be recorded as distinct receipts without overwriting history.
+6. Hash is stored as 32 bytes; verification checks it against exact preserved payload bytes.
+7. Every receipt is linked to one batch and one source identity; every raw payload is linked one-to-one to a receipt.
+8. UTC timestamp and valid run start/completion ordering checks are present.
+9. Deletes cannot cascade through preserved receipt/payload history.
+10. Verification uses synthetic data and a rollback-safe transaction; pass/fail output is clear.
+11. Setup has a clear database context, SQL Server version and permissions prerequisite; it must be repeatable or fail safely and must not drop existing user data.
+12. Return includes actual commands run/results; unrun checks are explicitly identified.
+13. Receipt/payload atomicity is demonstrated or clearly identified as a later application-service transaction boundary; do not claim database-level atomicity if it is not enforced.
 
-Implementation exit evidence is separate and requires reproducible schema creation, tested constraints/relationships, repeatable synthetic seed data, passing agreed tests and recorded actual results. Product Owner acceptance is separate from technical verification.
+### 5.5 Required test scenarios
 
-## 8. Outstanding decisions and blockers
+- Valid source, batch, pipeline run, source identity, receipt and raw payload.
+- Unknown-source batch rejected.
+- Unknown batch or unknown source identity receipt rejected.
+- Duplicate SourceCode rejected.
+- Duplicate (DataSourceId, SourceRecordKey) rejected.
+- Same source identity with same hash can be received more than once.
+- Same source identity with changed hash can be recorded as a separate receipt.
+- Exact payload bytes and their SHA-256 hash remain queryable and match.
+- Invalid hash length and invalid status rejected.
+- Invalid timestamp ordering rejected.
+- Receipt/payload relationship and delete restrictions behave as specified.
+- All fixture data rolled back; no persistent sample rows left behind.
 
-Open design decisions are listed in `docs/DECISIONS.md`, including:
-- Entity relationships/cardinalities and physical schema.
-- Source identity/idempotency and duplicate/conflict/correction semantics.
-- Quality issue lifecycle and rejected/quarantine handling.
-- Bronze/Silver/Gold promotion and lineage granularity.
-- Alert, investigation, evidence and outcome lifecycle/versioning.
-- Retention, audit history, deletion and security/access boundaries.
-- Seed-data scenarios.
-- Proposed .NET, data-access, API and test stack.
+### 5.6 Dependencies and environment assumptions
 
-No legal retention periods or regulatory requirements are assumed. A real deployment would require institutional/legal policy review.
+- Target is SQL Server 2022 Developer Edition.
+- Local SQL Server installation, actual version, connectivity and permissions have NOT yet been verified by the Product Owner in this project conversation.
+- SQL scripts must be SQL Server 2022-compatible and must clearly state how to select/create the target database and required permissions.
+- No .NET SDK, API, Dapper, xUnit, container or cloud dependency is needed for this SQL-only increment.
+- Use synthetic values only. No FNB, customer, real-person or confidential data.
 
-## 9. Assignment register and review history
+### 5.7 Explicit exclusions
 
-The previous SEN-REV-001 assignment was prepared under the 26 November workflow. It is **SUPERSEDED** and is not an active assignment. No Claude review completion is evidenced in the repository.
+Do not create or modify:
+- Any documentation, README, decision register, plan or handoff.
+- Any files outside the three exact assigned SQL paths.
+- Application/API code or .NET solution.
+- CSV/JSON parsers or automated ingestion service.
+- Validation/quality engine or issue lifecycle.
+- Silver/Gold tables or transformation jobs.
+- Risk, alert, investigation, evidence or outcome tables.
+- Authentication/authorisation framework, cloud, containers, brokers, microservices, reporting or deployment configuration.
+- Branches, commits or GitHub changes.
 
-No new Claude assignment is active at this handoff revision. A fresh review-only assignment may be prepared under FNEOS after the current repository head and scope are rechecked. Claude's review is read-only; no branch or file modification ownership is implied.
+Do not change approved source identity, receipt, raw payload or domain semantics. Do not add dependencies or infrastructure.
 
-## 10. File ownership register
+### 5.8 One-review-then-implementation procedure
 
-| Files | Owner | Access/status |
-|---|---|---|
-| All project documentation, including README and `docs/**.md` | ChatGPT | Documentation owner |
-| `docs/AI-COLLABORATION.md` | ChatGPT | Permanent FNEOS agreement |
-| `docs/AI-HANDOFF.md` | ChatGPT | Living handoff; this file |
-| `docs/DECISIONS.md` | ChatGPT | Decision register |
-| Code files | No active Claude owner | No implementation assignment authorised |
-| Claude review scope | Claude | Read-only only when assigned |
+Before writing code, Claude performs one independent review of the design and assignment and classifies findings:
+- **NON-BLOCKING:** explain briefly and proceed within the approved design.
+- **BLOCKING:** stop only affected work; report precise issue, impact, recommended resolution and exact decision required.
+- **PRODUCT OWNER DECISION:** request only where material approval is genuinely necessary.
 
-No simultaneous editing is authorised. Ownership transfer requires explicit Product Owner approval.
+If there is no blocking issue, proceed directly with implementation under this same assignment. Do not return for another general architecture review. Routine SQL implementation choices within the approved design do not require Product Owner approval.
 
-## 11. Next authorised action
+If a material issue is discovered, provide one consolidated report and wait only for the specific Product Owner decision. Do not silently change architecture, requirements or file scope.
 
-Prepare a new bounded **Claude REVIEW ONLY** assignment for Phase 1 domain/data architecture review under FNEOS. First re-check the latest `main) SHA and relevant documents. The assignment must prohibit edits, branches, commits, pushes, schema creation and implementation. ChatGPT will reconcile the returned findings and present design decisions to the Product Owner.
+### 5.9 Complete-file return format
 
-**Not authorised:** schema implementation, migrations, seed data, application code, implementation tests or deployment configuration.
+Return each file in full, with exact repository-relative path and a separate complete code block. Do not return diffs or partial snippets as substitutes.
+
+Then include:
+1. Review findings and classification.
+2. Implementation summary and object inventory.
+3. Design conformance and any justified non-material choices.
+4. Dependencies and environment assumptions.
+5. VS Code assembly instructions for the three exact paths.
+6. Execution order and exact SSMS/sqlcmd commands.
+7. Required permissions/database context.
+8. Tests and commands actually executed, exact results, and checks not run.
+9. Expected outcomes for Product Owner local verification.
+10. Limitations, known issues and residual risks.
+11. Confirmation that no excluded files/docs/branches/commits were modified.
+
+### 5.10 Product Owner assembly and local verification
+
+1. Create the exact folders if absent.
+2. Place each complete returned file at its assigned path.
+3. Review file contents before execution.
+4. Verify SQL Server version, connectivity, target database and permissions.
+5. Run setup scripts in order against a dedicated local development database, never an unintended database.
+6. Run verification script and capture complete output.
+7. Supply the three assembled files or diffs, Git status, SQL Server version, exact commands, complete output/errors and any deviations to ChatGPT.
+
+ChatGPT then performs one return/alignment checkpoint: re-fetch latest main, inspect current files and supplied code, compare against exact assignment, review actual local evidence, identify defects and integrate approved code into main. No next increment is assigned before that checkpoint.
+
+## 6. Current blockers and Product Owner decisions
+
+**No additional Product Owner design decision is open for SEN-DB-001.** SEN-DESIGN-001 and SEN-DB-001 were approved on 27 November 2026 with no amendments.
+
+**Environment verification pending:** Product Owner must verify local SQL Server 2022 version/connectivity and permissions during local assembly. This does not prevent Claude preparing the SQL files.
+
+**Assignment state:** Prepared and authorised; not yet delivered to Claude by this ChatGPT interface. The Product Owner must paste the assignment below into Claude. No implementation has started and no files have been returned.
+
+## 7. Assignment to send to Claude
+
+The full assignment is the content of this handoff's section 5. Send sections 1–6 as repository context and section 5 as the binding assignment. Claude must follow the one-review-then-implementation procedure in section 5.8.
+
+## 8. Status vocabulary
+
+- NOT STARTED: work has not begun.
+- IN PROGRESS: work is actively underway.
+- BLOCKED: a dependency or issue prevents progress.
+- IMPLEMENTED: the change has been made.
+- VERIFIED: defined checks have actually passed with evidence.
+- ACCEPTED: Product Owner has accepted the deliverable.
+
+Implementation, verification and acceptance are separate states. Never claim tests, local environment status or repository changes without evidence.
+
+## 9. Next authorised action
+
+Product Owner sends SEN-DB-001 in section 5 to Claude. Claude reviews once and, if no blocking issue exists, returns the three complete SQL files and the required implementation/verification instructions. Product Owner assembles and executes locally, then returns the actual files and evidence for ChatGPT's single integration checkpoint.
