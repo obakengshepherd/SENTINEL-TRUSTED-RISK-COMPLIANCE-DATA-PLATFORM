@@ -2,7 +2,7 @@
 
 **Primary specialisation:** Data Engineering  
 **Project type:** Synthetic enterprise portfolio demonstration  
-**Status:** Foundation documentation accepted as the implementation baseline; implementation not started.
+**Historical status (25 November 2026):** Foundation documentation established; detailed design and implementation increments remain subject to their approval gates. No application implementation.
 
 ## Purpose
 Sentinel demonstrates how an organisation can establish confidence in risk- and compliance-related information through controlled ingestion, data quality, governance, provenance, lineage, traceability, audit evidence, exception handling and reporting.
@@ -15,17 +15,25 @@ This is a portfolio demonstration, not a production banking, fraud-detection, an
 3. **Investigation:** a structured examination of an alert or other authorised referral.
 4. **Investigation outcome:** a documented conclusion supported by identifiable evidence.
 
-An alert does not establish wrongdoing. An investigation does not establish guilt. An outcome must have an identifiable evidential basis.
+An alert does not establish wrongdoing. An investigation does not establish guilt. An outcome must have an identifiable evidential basis. Evidence and outcomes are separate concepts.
 
-## Approved project direction
+## Approved project direction and constraints
 - Architecture: modular monolith.
 - Database: Microsoft SQL Server 2022 Developer Edition for local development.
-- Application direction: C# / .NET 10 LTS, subject to SDK and dependency verification.
-- Data organisation: Bronze / Silver / Gold, applied proportionately.
+- Full phased project scope, delivered incrementally.
 - Initial ingestion formats: CSV and JSON.
-- Deployment: local-first.
-- Scope: all phases in the approved implementation plan, delivered incrementally.
-- Historical project names are conceptual references only; no historical source code or Git history is to be imported.
+- Bronze / Silver / Gold as a logical data organisation direction, applied proportionately.
+- Synthetic data only; no production bank/customer integrations or real personal, financial or confidential data.
+- Historical project names are conceptual references only; no historical source code, repository structures, dependencies or Git history are to be imported.
+
+## Proposed technical direction — not yet approved
+- C# / .NET 10 LTS, subject to installed SDK, compatibility and dependency verification.
+- Dapper / ADO.NET with explicit SQL.
+- ASP.NET Core.
+- xUnit.
+- Local-first development is the intended approach; implementation details remain subject to design and environment verification.
+
+See [Architecture](docs/ARCHITECTURE.md) and [Decisions](docs/DECISIONS.md) for the current classification of decisions and proposals.
 
 ## Planned capabilities
 Source registration and ingestion; raw-data preservation; validation and quality issue management; duplicate and conflict handling; metadata, ownership and classification; dataset lineage and record traceability; risk indicators and alerts; investigations, evidence and outcomes; audit events; exception monitoring; reporting.
@@ -38,16 +46,23 @@ Source registration and ingestion; raw-data preservation; validation and quality
 - [Data governance](docs/DATA_GOVERNANCE.md)
 - [Provenance and lineage](docs/PROVENANCE_AND_LINEAGE.md)
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
+- [Decision register](docs/DECISIONS.md)
+- [AI collaboration agreement](docs/AI-COLLABORATION.md)
+- [AI handoff](docs/AI-HANDOFF.md)
 - [Project evolution](docs/PROJECT_EVOLUTION.md)
 
-## Engineering lifecycle
-**DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**
+## Engineering governance
+The project follows **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD** within the FNEOS three-stage collaboration workflow:
+1. ChatGPT owns architecture, requirements, project documentation, assignments and main-branch integration.
+2. Claude performs independent specialist review and assigned code engineering; it does not directly push or commit to GitHub.
+3. The Product Owner assembles Claude's code in VS Code, runs it and supplies actual results; ChatGPT performs the return/alignment checkpoint and integration.
 
-Inspect repository state before changing it. Obtain Product Owner approval before materially changing requirements, scope, architecture, technology, security boundaries, data integrity rules, major dependencies or infrastructure commitments.
+The Product Owner retains final authority. Material decisions require explicit approval. ChatGPT owns documentation; Claude is read-only on documentation unless the Product Owner explicitly approves an ownership transfer. Branches are prohibited unless the Product Owner explicitly authorises them.
 
-Distinguish NOT STARTED, IN PROGRESS, BLOCKED, IMPLEMENTED, VERIFIED and ACCEPTED. Never claim verification without evidence.
+## Status vocabulary
+Distinguish NOT STARTED, IN PROGRESS, BLOCKED, IMPLEMENTED, VERIFIED and ACCEPTED. Never claim implementation, verification or acceptance without evidence.
 
 ## Current status and approval boundary
-The Product Owner accepted the foundation documentation as the baseline for implementation. This confirms the project's purpose, scope and documented direction as the working baseline; it does not mean that detailed database/domain design decisions have all been approved.
+The historical project baseline is 25 November 2026, commit `82cb85867e3698b074714d076fb8e49fd4012cb4`. The foundation documentation was established; detailed domain/database design and implementation increments remain subject to their respective approval gates.
 
-Phase 1 database and domain design remains to be completed and reviewed before schema implementation. Application code, database schema, ingestion pipelines, automated tests and deployment configuration have not yet been implemented or verified.
+The current activity is Phase 1 — Database and Domain Design. Detailed design has not yet been completed or approved for implementation. Application code, database schema, migrations, ingestion pipelines, seed data, automated tests and deployment configuration have not been implemented or verified.
