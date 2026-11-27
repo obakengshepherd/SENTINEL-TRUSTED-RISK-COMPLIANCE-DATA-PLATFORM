@@ -9,7 +9,7 @@
 ## 1. Current project status
 
 **Historical baseline:** 25 November 2026 — `82cb85867e3698b074714d076fb8e49fd4012cb4`.  
-**Current verified main before this documentation update:** `205d01e81d5927db45e156fd51d7fb2a5d945f65`.  
+**Verified SEN-DB-001 assignment base main SHA:** `ca01afe39f471dfc9b7f7fbbeb4360b0b5131c45` (latest main after the approved design, decision register and roadmap updates).  
 **Current phase:** Phase 1 — Database and Domain Design / Foundation.  
 **Design baseline:** SEN-DESIGN-001 APPROVED by Product Owner on 27 November 2026, no amendments.  
 **First implementation increment:** SEN-DB-001 — SQL Server Ingestion Foundation.  
@@ -67,7 +67,7 @@ See `docs/DECISIONS.md` and `docs/PHASE-1-DATABASE-DOMAIN-DESIGN.md`.
 **Task:** SEN-DB-001  
 **Phase:** Phase 1 — Database and Domain Design / Foundation  
 **Increment:** Initial SQL Server Ingestion Foundation  
-**Assignment base main SHA:** `205d01e81d5927db45e156fd51d7fb2a5d945f65` (verified immediately before assignment documentation was prepared; re-check main if repository has advanced after this handoff commit).  
+**Assignment base main SHA:** `ca01afe39f471dfc9b7f7fbbeb4360b0b5131c45` (verified latest main immediately before finalising this assignment; re-check main if repository has advanced after this handoff commit).  
 **Design authority:** SEN-DESIGN-001, Product Owner-approved 27 November 2026.  
 **Review mode:** One independent review of the approved design and this assignment. If no blocking issue exists, Claude proceeds with implementation under this same handoff. No separate review-only loop.
 
