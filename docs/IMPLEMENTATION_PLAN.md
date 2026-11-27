@@ -2,100 +2,94 @@
 
 **Historical baseline:** 25 November 2026. Foundation documentation established; detailed design and implementation increments remain subject to their respective approval gates.  
 **Overall delivery scope:** Full phased scope approved, delivered incrementally.  
-**Current phase:** Phase 1 — Database and Domain Design.  
-**Phase 1 implementation status:** NOT STARTED and NOT AUTHORISED.
+**Current phase:** Phase 1 — Database and Domain Design / Foundation.  
+**Phase 1 design status:** APPROVED — SEN-DESIGN-001, 27 November 2026.  
+**Current implementation increment:** SEN-DB-001 — SQL Server Ingestion Foundation.  
+**Implementation status:** AUTHORISED; NOT STARTED pending Claude assignment review and file return.
 
 ## 1. Delivery principles
-Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**, coordinated through the FNEOS three-stage workflow. Work in manageable increments. Inspect before modifying. Preserve verified behaviour. Do not expand scope silently. Report actual test results. Code being written does not make a phase complete.
+
+Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**, coordinated through FNEOS. ChatGPT owns architecture, requirements, technical specifications, documentation, task decomposition, handoffs and main-branch integration. Claude performs one independent review of the relevant Primary AI work and, if no blocking issue exists, implements within the same approved handoff. The Product Owner assembles and runs the returned code locally. Avoid repeated general review loops. Escalate only genuine blockers or material Product Owner decisions.
+
+Work in manageable increments. Inspect before modifying. Preserve verified behaviour and repository history. Do not expand scope silently. Report actual test results. Code being written does not make a phase complete.
 
 ## 2. Phases
 
 ### Phase 0 — Project foundation
+
 Deliverables: business purpose, scope and exclusions; controlled glossary; initial conceptual entity and relationship model; architecture and technology direction; governance, provenance and lineage principles; acceptance criteria and repository documentation.
 
-**Historical status:** Foundation documentation established by the 25 November 2026 baseline. This is not a claim that detailed design or implementation was approved or completed.
+**Historical status:** Foundation documentation established by the 25 November 2026 baseline.
 
 ### Phase 1 — Database and domain foundation
 
-**Current phase. Design status: NOT STARTED. Implementation status: NOT STARTED.**
+**Design status: APPROVED — SEN-DESIGN-001, 27 November 2026.**  
+**Implementation:** Incremental; first increment SEN-DB-001 is authorised but not yet started.
 
 #### Phase 1A — Detailed design and environment discovery
-- Review and finalise domain entities, responsibilities, relationships, cardinalities and lifecycle boundaries.
-- Define source identity, re-delivery, idempotency, exact-duplicate and conflict semantics, correction/version handling.
-- Define investigation referral, alert relationships, evidence association, outcome evidential basis, versioning, reopening and supersession.
-- Define governance, provenance, lineage, audit and security boundaries needed by the first database increment.
-- Design the initial SQL Server relational schema, keys, constraints, indexes and transaction boundaries.
-- Define Bronze / Silver / Gold promotion and exception/quarantine semantics without introducing unnecessary infrastructure.
-- Identify the minimum coherent synthetic reference and seed scenarios.
-- Verify the local SQL Server 2022 Developer Edition environment and inspect installed .NET SDK/runtime before selecting environment-dependent implementation details.
-- Classify technology choices as approved, proposed or deferred.
+- Completed for the approved design baseline in `docs/PHASE-1-DATABASE-DOMAIN-DESIGN.md`.
+- Domain identity, source delivery, raw payload, processing history, domain invariants, initial physical SQL design and SEN-DB-001 acceptance criteria are defined.
+- Local SQL Server version/connectivity remains to be verified by the Product Owner during local assembly. No local verification is claimed.
+- C#/.NET, Dapper/ADO.NET, ASP.NET Core and xUnit remain proposals and are not dependencies of the SQL-only first increment.
 
 #### Phase 1B — Specialist review and Product Owner design approval
-- ChatGPT prepares a bounded, read-only Claude architecture/domain review assignment.
-- Claude independently reviews the current repository and returns findings; it does not modify files.
-- ChatGPT reconciles findings, identifies trade-offs and prepares a decision-focused design proposal.
-- Product Owner approves material design decisions and the detailed Phase 1 design baseline.
-- ChatGPT records approved material decisions in `docs/DECISIONS.md`.
+- Product Owner approved SEN-DESIGN-001 with no amendments on 27 November 2026.
+- Under the active 27 November directive, Claude receives one combined review-and-implementation handoff. Claude reviews the approved design and assignment once; if no blocking issue exists, proceeds with the assigned implementation under that same handoff.
+- Non-blocking findings are documented and implementation proceeds within the approved design.
+- Blocking issues stop only affected work and are consolidated with impact, proposed resolution and exact Product Owner decision required.
+- No repeated general review cycle.
 
-**Implementation gate:** No schema, migration, seed data, application code or automated tests may be started as Phase 1 implementation until the detailed design is reviewed, material decisions are approved, and the Product Owner explicitly authorises a bounded first implementation increment.
+#### Phase 1C — Bounded implementation: SEN-DB-001
+**Objective:** Create the SQL Server source/ingestion/raw-payload foundation.
 
-#### Phase 1C — Bounded implementation increment (future; not authorised)
-The exact scope will be proposed after design approval. Candidate deliverables include the solution structure, initial database schema, core source/ingestion entities and constraints, reference data, a small deterministic synthetic dataset and automated tests. The assignment must state exact files, boundaries, expected outputs and verification steps.
+**Exact Claude-owned files:**
+- `database/001-create-schemas.sql`
+- `database/002-create-ingestion-foundation.sql`
+- `database/tests/001-verify-ingestion-foundation.sql`
 
-#### Phase 1 acceptance criteria
-**Design acceptance evidence:**
-- Approved conceptual domain model with explicit relationships/cardinalities.
-- Documented source identity, idempotency, duplicate, conflict and correction rules.
-- Documented investigation, evidence and outcome lifecycle rules.
-- Reviewed physical SQL Server design including schemas, keys, constraints and justified indexes.
-- Defined transaction and failure boundaries for the first increment.
-- Defined synthetic seed scenarios and expected outcomes.
-- Environment discovery recorded; proposed stack decisions remain clearly classified.
-- Bounded implementation increment and tests specified.
-- Material decisions explicitly approved by the Product Owner.
+**Included:** schemas `ref`, `ingest`, `bronze`, `ops`; tables for DataSource, PipelineRun, IngestionBatch, SourceRecordIdentity, RecordReceipt and RawRecord; keys, constraints, justified indexes; repeat-safe/clear-precondition setup; rollback-safe synthetic verification scenarios.
 
-**Implementation exit evidence (only after authorisation):**
-- Schema/setup can be created reproducibly on the verified target environment.
-- Constraints and representative relationships are exercised by tests.
-- Synthetic seed data is deterministic and repeatable.
-- Domain invariants and agreed edge cases pass automated checks.
-- Actual commands, results and limitations are recorded.
-- Product Owner acceptance is separately recorded; passing tests alone do not imply acceptance.
+**Excluded:** application/API code, .NET solution, CSV/JSON parser, automated ingestion service, quality engine, Silver/Gold tables, risk/investigation tables, cloud, containers, messaging, microservices, production security and reporting.
+
+**Acceptance criteria:**
+1. Setup creates all four schemas and six defined tables on SQL Server 2022.
+2. Primary/foreign keys, unique constraints and check constraints enforce the approved model.
+3. Source identity is unique within a source; every delivery is separately recordable.
+4. Exact repeats and changed-content deliveries are retained without overwriting prior payload/receipt history.
+5. SHA-256 is stored as 32 bytes and verification checks the hash against exact payload bytes.
+6. Receipt-to-payload one-to-one relationship is enforced; transaction boundary is demonstrated or explicitly documented for the later application service.
+7. UTC timestamps and valid start/completion ordering are enforced.
+8. Deletes cannot cascade through preserved receipt/payload history.
+9. Verification uses synthetic rollback-safe data and reports pass/fail clearly.
+10. Setup, target version, permissions, database context and execution commands are documented in Claude's return.
+11. Claude reports only commands actually run and real outcomes; unrun checks are identified.
+12. Product Owner local execution evidence is supplied and reviewed before VERIFIED or ACCEPTED status.
+
+**Execution sequence:** ChatGPT finalises and records the design/assignment; Claude reviews once and implements if no blocker; Product Owner assembles and executes in VS Code/SSMS; ChatGPT performs one return/alignment checkpoint and integration review; ChatGPT integrates approved code into main and records actual verification/acceptance state.
+
+#### Phase 1 completion criteria
+Phase 1 is not complete after SEN-DB-001 alone. Remaining increments will address domain tables, quality, lineage/governance and risk/investigation models as defined by approved scope. Design, implementation, verification and Product Owner acceptance remain distinct states.
 
 ### Phase 2 — Data ingestion
 Deliverables: CSV and JSON ingestion; source and batch registration; raw payload preservation; record receipt tracking; idempotency, duplicate and conflict handling; pipeline run metadata.
 
-Exit evidence: valid, repeated and conflicting submissions produce defined, tested results.
-
 ### Phase 3 — Data quality and validation
 Deliverables: versioned validation rules; validation execution and results; rejected-record handling; quality issue lifecycle; quality metrics and reports.
-
-Exit evidence: valid and invalid records are distinguishable and failures traceable.
 
 ### Phase 4 — Governance, provenance and lineage
 Deliverables: data asset metadata; ownership and classification; dataset-level lineage; record-level traceability where justified; transformation documentation.
 
-Exit evidence: selected records and datasets can be traced to origins and processing context.
-
 ### Phase 5 — Risk and compliance domain
 Deliverables: risk indicators; synthetic risk rules; alerts and triggering context; investigation management; evidence references; documented outcomes.
-
-Exit evidence: risk indicators, alerts, investigations and investigation outcomes remain distinct and their relationships are tested.
 
 ### Phase 6 — Audit and monitoring
 Deliverables: significant audit events; status-transition history; pipeline and exception monitoring; audit evidence queries.
 
-Exit evidence: representative activities can be reconstructed with attributable history.
-
 ### Phase 7 — Reporting and analytical outputs
 Deliverables: governed reporting views; data-quality metrics; pipeline monitoring outputs; risk and investigation summaries; Power BI integration if justified.
 
-Exit evidence: reports reconcile to underlying governed records and defined reporting rules.
-
 ### Phase 8 — Engineering hardening and demonstration
 Deliverables: regression and integration testing; security and permission review; recovery and repeatability testing; workload-based performance measurements; setup, architecture and demonstration documentation.
-
-Exit evidence: reproducible demonstration, recorded test evidence and honest limitations.
 
 ## 3. Project-level acceptance criteria
 
@@ -117,6 +111,7 @@ Exit evidence: reproducible demonstration, recorded test evidence and honest lim
 | Testing | Actual automated test results |
 
 ## 4. Status vocabulary
+
 - NOT STARTED: work has not begun.
 - IN PROGRESS: work is actively underway.
 - BLOCKED: a dependency or issue prevents progress.
@@ -127,4 +122,5 @@ Exit evidence: reproducible demonstration, recorded test evidence and honest lim
 Implementation, verification and acceptance are separate states.
 
 ## 5. Completion reporting
+
 At each meaningful task completion, report accomplishments; files created or modified; important technical decisions; tests executed and actual results; outstanding issues; documentation updated; Git status and commit if applicable; recommended next action.
