@@ -46,7 +46,7 @@ The following commits were made sequentially on `main), without creating branche
 | `81b8b026b232b9303fba3409569ac1172b088b22` | `docs/DECISIONS.md` | Create the authoritative decision register |
 | `61b1d556dfd8307975090b2c0d1c8fbea816dc17` | `docs/AI-COLLABORATION.md` | Replace the 26 November workflow with the approved FNEOS agreement |
 
-The GitHub contents operations produced one normal commit per file, so the original two-commit proposal was not realised. No history was rewritten and no branch was created. The handoff update itself will be the next normal commit. Verify the final `main) head after that update before relying on it for a later assignment.
+The GitHub contents operations produced one normal commit per file, so the original two-commit proposal was not realised. No history was rewritten and no branch was created. The handoff update was committed on `main` as a separate normal commit. The final branch head was fetched and verified after the update; re-check `main` before any subsequent assignment.
 
 ## 3. Approved project direction and constraints
 
