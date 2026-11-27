@@ -27,6 +27,8 @@ A recommendation, draft design or tool default does not become an approved decis
 | SEN-DEC-008 | Historical code | Historical project names are conceptual references only; do not import old source code, dependencies, repository structures or Git history. | ACCEPTED BASELINE RULE | See `docs/PROJECT_EVOLUTION.md`. |
 | SEN-DEC-009 | Collaboration | Adopt the FNEOS three-stage workflow, ChatGPT documentation ownership, Claude assigned-code ownership, user-led VS Code assembly and ChatGPT return/alignment checkpoint. | APPROVED 2026-11-27 | See `docs/AI-COLLABORATION.md`. |
 | SEN-DEC-010 | Branch governance | Branch-based work is prohibited unless the Product Owner explicitly authorises it. Claude must not push or commit directly to GitHub. | APPROVED 2026-11-27 | Routine approved documentation corrections are committed by ChatGPT directly to main. |
+| SEN-DEC-011 | Phase 1 design | Approve the detailed domain and initial SQL Server relational design in `docs/PHASE-1-DATABASE-DOMAIN-DESIGN.md`. | APPROVED 2026-11-27 | Product Owner approved SEN-DESIGN-001 with no amendments. Includes source-scoped identity, immutable delivery receipts, raw payload preservation, historical processing and evidence-supported outcomes. |
+| SEN-DEC-012 | Initial database increment | Authorise SEN-DB-001, SQL Server Ingestion Foundation, under the approved design and bounded file list. | APPROVED 2026-11-27 | SQL-only database foundation; no application/API/.NET/cloud implementation. Implementation is not complete until files are returned, assembled and verified. |
 
 ## 3. Proposed technical choices — not approved
 
@@ -39,20 +41,16 @@ A recommendation, draft design or tool default does not become an approved decis
 | SEN-PROP-005 | Development tools | VS Code and SSMS | PROPOSED | Verify actual local environment. |
 | SEN-PROP-006 | Deployment | Local-first development | FOUNDATION DIRECTION | Confirm practical setup; no cloud commitment is approved. |
 
-## 4. Open design decisions
+## 4. Open and deferred design decisions
 
-The following remain open until detailed Phase 1 design and the relevant Product Owner approval:
-- Domain entity boundaries, relationships, cardinalities and optionality.
-- Source identity, idempotency scope, replay and re-delivery semantics.
-- Exact duplicate versus conflicting submission rules; correction and version history.
-- Database schemas, physical tables, keys, constraints, indexes and transaction boundaries.
-- Data-quality issue lifecycle, rejected/quarantined data and reprocessing.
+The following remain outside SEN-DB-001 and must be resolved in their relevant increments:
+- CSV/JSON parsing, schema versioning and malformed-input semantics.
+- Automated idempotency/conflict classification, correction and version-resolution workflow.
+- Data-quality issue lifecycle, rejected/quarantined records and reprocessing.
 - Bronze/Silver/Gold promotion criteria and lineage granularity.
-- Investigation referral sources, alert-to-investigation cardinality and lifecycle transitions.
-- Evidence identity, integrity, association, update history and outcome evidential basis.
-- Outcome versioning, reopening and supersession.
+- Detailed risk rule, alert, referral, investigation, evidence and outcome physical models.
 - Retention, deletion, audit history, security roles and access boundaries.
-- Deterministic synthetic reference/seed data and acceptance scenarios.
+- Deterministic synthetic datasets beyond SEN-DB-001's rollback-safe verification scenarios.
 - Final selection of proposed application/runtime, data-access, API and test technologies.
 
 Do not invent legal retention requirements or regulatory obligations. A real deployment would require relevant institutional/legal policy review.
@@ -62,7 +60,7 @@ Do not invent legal retention requirements or regulatory obligations. A real dep
 | Record | Superseded position | Replacement |
 |---|---|---|
 | 26 November 2026 AI collaboration agreement and handoff workflow | Mandatory Claude branches and pull requests; broad AI documentation/implementation overlap; ChatGPT may independently implement delegated code. | FNEOS three-stage workflow approved 27 November 2026. Git history remains intact. |
-| SEN-REV-001 assignment as recorded in the 26 November handoff | Prepared under the superseded workflow; not treated as an active assignment or evidence of a completed Claude review. | A new review-only assignment may be prepared under FNEOS after the return/reset baseline is recorded. |
+| SEN-REV-001 assignment as recorded in the 26 November handoff | Prepared under the superseded workflow; not treated as an active assignment or evidence of a completed Claude review. | Superseded by the 27 November FNEOS single-review-then-implementation workflow. |
 
 ## 6. Decision change procedure
 For each material decision, record a stable ID, date, topic, exact decision, status, rationale, alternatives where material, affected requirements/architecture/data/security/delivery, approval authority and any superseded decision. Update relevant project documents in the same documentation change set. Do not erase superseded decisions or rewrite historical Git commits.
