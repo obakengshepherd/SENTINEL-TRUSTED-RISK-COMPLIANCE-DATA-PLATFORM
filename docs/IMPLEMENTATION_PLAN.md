@@ -1,39 +1,66 @@
 # Implementation Plan
 
-**Status:** Foundation documentation accepted; Phase 1 database and domain design not yet approved for implementation.  
-**Delivery:** Full phased project scope approved; phase designs and implementation increments require review.
+**Historical baseline:** 25 November 2026. Foundation documentation established; detailed design and implementation increments remain subject to their respective approval gates.  
+**Overall delivery scope:** Full phased scope approved, delivered incrementally.  
+**Current phase:** Phase 1 — Database and Domain Design.  
+**Phase 1 implementation status:** NOT STARTED and NOT AUTHORISED.
 
 ## 1. Delivery principles
-Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**. Work in manageable increments. Inspect before modifying. Preserve verified behaviour. Do not expand scope silently. Report actual test results. Code being written does not make a phase complete.
+Follow **DISCOVER → DESIGN → BUILD → VERIFY → REVIEW → RECORD**, coordinated through the FNEOS three-stage workflow. Work in manageable increments. Inspect before modifying. Preserve verified behaviour. Do not expand scope silently. Report actual test results. Code being written does not make a phase complete.
 
 ## 2. Phases
 
 ### Phase 0 — Project foundation
-Deliverables: business purpose, scope and exclusions; controlled glossary; conceptual entity and relationship model; architecture and technology direction; governance, provenance and lineage principles; acceptance criteria and repository documentation.
+Deliverables: business purpose, scope and exclusions; controlled glossary; initial conceptual entity and relationship model; architecture and technology direction; governance, provenance and lineage principles; acceptance criteria and repository documentation.
 
-**Status:** Foundation documentation accepted by the Product Owner as the implementation baseline.
-
-The acceptance gate for this documentation milestone is satisfied. It does not imply that every detailed entity relationship, physical database design, lifecycle policy or implementation choice has been approved. Those detailed design gates are addressed before and during Phase 1.
+**Historical status:** Foundation documentation established by the 25 November 2026 baseline. This is not a claim that detailed design or implementation was approved or completed.
 
 ### Phase 1 — Database and domain foundation
-**Status:** NOT STARTED — design and review required before schema implementation.
 
-Deliverables:
-- Verify the local SQL Server 2022 Developer Edition environment and selected tooling.
-- Review and finalise the conceptual domain model and entity relationships.
-- Define the initial relational schema, keys, constraints and reference data.
-- Define record identity, exact-duplicate and conflict semantics.
-- Define the initial synthetic seed dataset and its expected relationships.
-- Define database migration/setup and repeatability approach.
-- Define tests for core domain rules, constraints and representative relationships.
+**Current phase. Design status: NOT STARTED. Implementation status: NOT STARTED.**
 
-**Review and approval gate before implementation:**
-- Claude specialist review of the domain model, database design, data integrity and governance implications.
-- ChatGPT synthesis of findings and proposed disposition.
-- Product Owner approval of material design decisions.
-- Only then begin the bounded Phase 1 implementation increment.
+#### Phase 1A — Detailed design and environment discovery
+- Review and finalise domain entities, responsibilities, relationships, cardinalities and lifecycle boundaries.
+- Define source identity, re-delivery, idempotency, exact-duplicate and conflict semantics, correction/version handling.
+- Define investigation referral, alert relationships, evidence association, outcome evidential basis, versioning, reopening and supersession.
+- Define governance, provenance, lineage, audit and security boundaries needed by the first database increment.
+- Design the initial SQL Server relational schema, keys, constraints, indexes and transaction boundaries.
+- Define Bronze / Silver / Gold promotion and exception/quarantine semantics without introducing unnecessary infrastructure.
+- Identify the minimum coherent synthetic reference and seed scenarios.
+- Verify the local SQL Server 2022 Developer Edition environment and inspect installed .NET SDK/runtime before selecting environment-dependent implementation details.
+- Classify technology choices as approved, proposed or deferred.
 
-**Exit evidence:** Schema can be created reproducibly; constraints and representative relationships are tested; synthetic seed data is reproducible; the implemented domain foundation satisfies its agreed acceptance criteria.
+#### Phase 1B — Specialist review and Product Owner design approval
+- ChatGPT prepares a bounded, read-only Claude architecture/domain review assignment.
+- Claude independently reviews the current repository and returns findings; it does not modify files.
+- ChatGPT reconciles findings, identifies trade-offs and prepares a decision-focused design proposal.
+- Product Owner approves material design decisions and the detailed Phase 1 design baseline.
+- ChatGPT records approved material decisions in `docs/DECISIONS.md`.
+
+**Implementation gate:** No schema, migration, seed data, application code or automated tests may be started as Phase 1 implementation until the detailed design is reviewed, material decisions are approved, and the Product Owner explicitly authorises a bounded first implementation increment.
+
+#### Phase 1C — Bounded implementation increment (future; not authorised)
+The exact scope will be proposed after design approval. Candidate deliverables include the solution structure, initial database schema, core source/ingestion entities and constraints, reference data, a small deterministic synthetic dataset and automated tests. The assignment must state exact files, boundaries, expected outputs and verification steps.
+
+#### Phase 1 acceptance criteria
+**Design acceptance evidence:**
+- Approved conceptual domain model with explicit relationships/cardinalities.
+- Documented source identity, idempotency, duplicate, conflict and correction rules.
+- Documented investigation, evidence and outcome lifecycle rules.
+- Reviewed physical SQL Server design including schemas, keys, constraints and justified indexes.
+- Defined transaction and failure boundaries for the first increment.
+- Defined synthetic seed scenarios and expected outcomes.
+- Environment discovery recorded; proposed stack decisions remain clearly classified.
+- Bounded implementation increment and tests specified.
+- Material decisions explicitly approved by the Product Owner.
+
+**Implementation exit evidence (only after authorisation):**
+- Schema/setup can be created reproducibly on the verified target environment.
+- Constraints and representative relationships are exercised by tests.
+- Synthetic seed data is deterministic and repeatable.
+- Domain invariants and agreed edge cases pass automated checks.
+- Actual commands, results and limitations are recorded.
+- Product Owner acceptance is separately recorded; passing tests alone do not imply acceptance.
 
 ### Phase 2 — Data ingestion
 Deliverables: CSV and JSON ingestion; source and batch registration; raw payload preservation; record receipt tracking; idempotency, duplicate and conflict handling; pipeline run metadata.
@@ -53,7 +80,7 @@ Exit evidence: selected records and datasets can be traced to origins and proces
 ### Phase 5 — Risk and compliance domain
 Deliverables: risk indicators; synthetic risk rules; alerts and triggering context; investigation management; evidence references; documented outcomes.
 
-Exit evidence: the four critical domain concepts remain distinct and their relationships are tested.
+Exit evidence: risk indicators, alerts, investigations and investigation outcomes remain distinct and their relationships are tested.
 
 ### Phase 6 — Audit and monitoring
 Deliverables: significant audit events; status-transition history; pipeline and exception monitoring; audit evidence queries.
@@ -70,7 +97,7 @@ Deliverables: regression and integration testing; security and permission review
 
 Exit evidence: reproducible demonstration, recorded test evidence and honest limitations.
 
-## 3. Acceptance criteria
+## 3. Project-level acceptance criteria
 
 | Capability | Required evidence |
 |---|---|
@@ -97,12 +124,7 @@ Exit evidence: reproducible demonstration, recorded test evidence and honest lim
 - VERIFIED: defined checks have actually passed, with evidence.
 - ACCEPTED: the Product Owner has accepted the deliverable.
 
-Implementation and verification are separate states. Acceptance is a Product Owner decision.
+Implementation, verification and acceptance are separate states.
 
-## 5. First implementation increment
-After detailed conceptual and physical design approval, propose a bounded Phase 1 increment covering solution structure, initial database schema, core source and ingestion entities, key constraints and reference data, a small synthetic dataset and automated tests.
-
-Do not begin substantial implementation solely because overall project scope or foundation documentation has been accepted.
-
-## 6. Completion reporting
+## 5. Completion reporting
 At each meaningful task completion, report accomplishments; files created or modified; important technical decisions; tests executed and actual results; outstanding issues; documentation updated; Git status and commit if applicable; recommended next action.
